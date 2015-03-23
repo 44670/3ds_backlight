@@ -4,16 +4,18 @@ import os
 import ftplib
 import glob
 
-# the path plugin was copied to
-COPYTOPATH = 'I:\\plugin\\home\\backlight.plg'
+# TODO: set the path that the plugin copied to
+COPYTOPATH = 'Release\\plugin\\home\\backlight.plg'
 
 CC = "arm-none-eabi-gcc"
 CP = "arm-none-eabi-g++"
 OC = "arm-none-eabi-objcopy" 
 LD = "arm-none-eabi-ld"
 CTRULIB = '../libctru'
+# TODO: set devkitARM path
 DEVKITARM = 'c:/devkitPro/devkitARM'
-LIBPATH = '-L ' + DEVKITARM + '/lib/gcc/arm-none-eabi/4.8.2' + ' -L ' + DEVKITARM + '/arm-none-eabi/lib'
+# TODO: replace 4.9.2 to your version of the gcc
+LIBPATH = '-L ' + DEVKITARM + '/lib/gcc/arm-none-eabi/4.9.2' + ' -L ' + DEVKITARM + '/arm-none-eabi/lib'
 
 def allFile(pattern):
     s = "";

@@ -7,6 +7,12 @@
 #include <fcntl.h>
 #include <errno.h>
 
+/*
+such lock
+much danger
+need repair
+wow
+*/
 void rtInitLock(RT_LOCK *lock) {
 	lock->value = 0;
 }

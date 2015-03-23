@@ -12,12 +12,8 @@
 #define BOTTOM_HEIGHT 240
 #define BOTTOM_WIDTH 320
 
-#define TOP_LEFT_FRAME1 (*(vu32*)(0xFFFCE468) + 0xD0000000) 
-#define TOP_LEFT_FRAME2 (*(vu32*)(0xFFFCE46C) + 0xD0000000) 
-
-
-#define BOTTOM_FRAME1 buttomFrameBuffer
-#define BOTTOM_FRAME2 buttomFrameBuffer
+#define BOTTOM_FRAME1 bottomFrameBuffer
+#define BOTTOM_FRAME2 bottomFrameBuffer
 #define BOTTOM_FRAME_SIZE	(320 * 240 * 3)
 
 
@@ -40,5 +36,5 @@ void print(char* s,int x, int y, char r, char g, char b);
 void blank(int x, int y, int xs, int ys);
 void square(int x, int y, int xs, int ys);
 
-extern u32 buttomFrameBuffer;
+extern u32 bottomFrameBuffer;
 #endif

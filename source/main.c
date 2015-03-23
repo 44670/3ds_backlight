@@ -10,14 +10,22 @@
 Handle fsUserHandle;
 FS_archive sdmcArchive = {0x9, (FS_path){PATH_EMPTY, 1, (u8*)""}};
 
-static int bklightValue = 8;
+int bklightValue = 8;
+u32 IoBaseLcd;
+u32 IoBasePad;
 
 void updateBklight() {
 	u32 t;
-	t = bklightValue * 8;
+	if (bklightValue < 4) {
+		t = bklightValue;
+	}
+	else {
+		t = bklightValue * 8;
+	}
 	// http://3dbrew.org/wiki/LCD_Registers
-	*(vu8*)(0xfffd6240) = t;
-	*(vu8*)(0xfffd6a40) = t;
+
+	*(vu8*)(IoBaseLcd + 0x240) = t;
+	*(vu8*)(IoBaseLcd + 0xa40) = t;
 }
 
 void adjustBklight(int adj) {
@@ -59,8 +67,11 @@ int main() {
 
 
 	initSharedFunc();
+	IoBaseLcd = plgGetIoBase(IO_BASE_LCD);
+	IoBasePad = plgGetIoBase(IO_BASE_PAD);
+
 	nsDbgPrint("initializing backlight plugin\n");
-	plgRegisterMenuEntry(1, "Backlight Control", controlBacklightUi);
+	plgRegisterMenuEntry(CATALOG_MAIN_MENU, "Backlight Control", controlBacklightUi);
 	plgGetSharedServiceHandle("fs:USER", &fsUserHandle);
 	nsDbgPrint("fsUserHandle: %08x\n", fsUserHandle);
 }
