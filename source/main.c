@@ -11,8 +11,9 @@ Handle fsUserHandle;
 FS_archive sdmcArchive = {0x9, (FS_path){PATH_EMPTY, 1, (u8*)""}};
 
 int bklightValue = 8;
-u32 IoBaseLcd;
+u32 IoBaseLcd ;
 u32 IoBasePad;
+int isNewNtr;
 
 void updateBklight() {
 	u32 t;
@@ -67,12 +68,22 @@ int main() {
 
 
 	initSharedFunc();
-	IoBaseLcd = plgGetIoBase(IO_BASE_LCD);
-	IoBasePad = plgGetIoBase(IO_BASE_PAD);
+	if (((NS_CONFIG*)(NS_CONFIGURE_ADDR))->sharedFunc[8]) {
+		isNewNtr = 1;
+	} else {
+		isNewNtr = 0;
+	}
+	if (isNewNtr) {
+		IoBasePad = plgGetIoBase(IO_BASE_PAD);
+		IoBaseLcd = plgGetIoBase(IO_BASE_LCD);
+	}
+	else {
+		IoBasePad = 0xFFFD4000;
+		IoBaseLcd = 0xFFFD6000;
+	}
 
 	nsDbgPrint("initializing backlight plugin\n");
 	plgRegisterMenuEntry(CATALOG_MAIN_MENU, "Backlight Control", controlBacklightUi);
-	plgGetSharedServiceHandle("fs:USER", &fsUserHandle);
 	nsDbgPrint("fsUserHandle: %08x\n", fsUserHandle);
 }
 

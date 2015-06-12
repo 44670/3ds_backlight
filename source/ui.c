@@ -11,7 +11,7 @@ extern u32 IoBasePad;
 
 void debounceKey() {
 	vu32 t;
-	for (t = 0; t < 0x1000000; t++) {
+	for (t = 0; t < 0x100000; t++) {
 	}
 }
 
@@ -112,6 +112,7 @@ u32 waitKey() {
 			break;
 		}
 	}
+	debounceKey();
 	return key;
 }
 
